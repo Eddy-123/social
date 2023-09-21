@@ -1,0 +1,7 @@
+{
+  "git-blame.gitWebUrl": "",
+  "html.format.enable": false,
+  "[html]": {
+    "editor.formatOnSave": false
+  }
+}
