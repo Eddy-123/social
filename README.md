@@ -4,6 +4,7 @@ Social is a blog project built with the python based Django framework, PostgreSQ
 
 ## Features
 
+- **Logging & Monitoring** - Sentry
 - **SEO-friendly and canonical URLs**
 - **Pagination**
 - **Class-based views**
