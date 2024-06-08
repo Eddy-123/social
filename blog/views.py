@@ -1,14 +1,16 @@
+import logging
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
-from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.contrib.postgres.search import SearchVector
-from .forms import EmailPostForm, CommentForm, SearchForm
 from django.core.mail import send_mail
+from django.db.models import Count
 from django.views.decorators.http import require_POST
 from taggit.models import Tag
-from django.db.models import Count
+from .forms import EmailPostForm, CommentForm, SearchForm
+from .models import Post
+
+logger = logging.getLogger("blog")
 
 class PostListView(ListView):
     queryset = Post.published.all()
@@ -29,8 +31,10 @@ def post_list(request, tag_slug=None):
     try:
         posts = paginator.page(page_number)
     except PageNotAnInteger:
+        logger.info("Page Not An Integer")
         posts = paginator.page(1)
     except EmptyPage:
+        logger.info("Empty Page")
         posts = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/post/list.html', {'posts': posts,
