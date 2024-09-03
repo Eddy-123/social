@@ -1,32 +1,43 @@
 from selenium import webdriver
+import unittest
 
-browser = webdriver.Firefox()
 
-# Edith has heard about a cool new online blog app.
-# She goes to check out its homepage
-browser.get("http://localhost:8000")
+class NewVisitorTest(unittest.TestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
 
-# She notices the page title and header mentions blog
-assert "blogs" in browser.title, "Browser title was " + browser.title
+    def tearDown(self):
+        self.browser.quit()
 
-# She is invited to enter a post item straight away
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        # Edith has heard about a cool new online blog app.
+        # She goes to check out its homepage
+        self.browser.get("http://localhost:8000")
 
-# She types "Buy peacock feathers" into a text box
+        # She notices the page title and header mentions blog
+        self.assertIn("blog", self.browser.title)
+        self.fail("Finish the test !")
 
-# When she hits enter, the page updates, and now the page lists
-# "1: Buy peacock feathers" as an item in a post list
+        # She is invited to enter a post item straight away
 
-# There is still a text box inviting her to add another item.
-# She enters "Use peacock feathers to make a fly"
+        # She types "Buy peacock feathers" into a text box
 
-# The page updates again, and now shows both items on her list
+        # When she hits enter, the page updates, and now the page lists
+        # "1: Buy peacock feathers" as an item in a post list
 
-# Edith wonders whether the site will remember her list.
-# Then she sees that the site has generated a unique URL for her --
-# There is some explanatory text to that effect.
+        # There is still a text box inviting her to add another item.
+        # She enters "Use peacock feathers to make a fly"
 
-# She visits that URL - her post list is still there.
+        # The page updates again, and now shows both items on her list
 
-# Satisfied, she goes back to sleep
+        # Edith wonders whether the site will remember her list.
+        # Then she sees that the site has generated a unique URL for her --
+        # There is some explanatory text to that effect.
 
-browser.quit()
+        # She visits that URL - her post list is still there.
+
+        # Satisfied, she goes back to sleep
+
+
+if __name__ == "__main__":
+    unittest.main(warnings="ignore")
